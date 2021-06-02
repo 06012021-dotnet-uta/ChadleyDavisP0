@@ -11,13 +11,13 @@ namespace RockPaperScissors1
             Paper = 2,
             Scissors = 3
         }
-        static Dictionary<RPS, string> Moves = new Dictionary<RPS, string>
+        static readonly Dictionary<RPS, string> Moves = new Dictionary<RPS, string>
         {
             { RPS.Rock, "Rock" },
             { RPS.Paper, "Paper" },
             { RPS.Scissors, "Scissors" }
         };
-        static Dictionary<KeyValuePair<RPS, RPS>, string> Effects = new Dictionary<KeyValuePair<RPS, RPS>, string>
+        static readonly Dictionary<KeyValuePair<RPS, RPS>, string> Effects = new Dictionary<KeyValuePair<RPS, RPS>, string>
         {
             {  new KeyValuePair<RPS, RPS>(RPS.Rock, RPS.Rock), "ties with" },
             {  new KeyValuePair<RPS, RPS>(RPS.Rock, RPS.Paper), "is covered by" },
@@ -29,7 +29,7 @@ namespace RockPaperScissors1
             {  new KeyValuePair<RPS, RPS>(RPS.Scissors, RPS.Paper), "cuts" },
             {  new KeyValuePair<RPS, RPS>(RPS.Scissors, RPS.Scissors), "ties with" },
         };
-        static Dictionary<KeyValuePair<RPS, RPS>, string> Results = new Dictionary<KeyValuePair<RPS, RPS>, string>
+        static readonly Dictionary<KeyValuePair<RPS, RPS>, string> Results = new Dictionary<KeyValuePair<RPS, RPS>, string>
         {
             {  new KeyValuePair<RPS, RPS>(RPS.Rock, RPS.Rock), "Tied With Computer" },
             {  new KeyValuePair<RPS, RPS>(RPS.Rock, RPS.Paper), "Loses" },
@@ -41,8 +41,14 @@ namespace RockPaperScissors1
             {  new KeyValuePair<RPS, RPS>(RPS.Scissors, RPS.Paper), "Wins!!!" },
             {  new KeyValuePair<RPS, RPS>(RPS.Scissors, RPS.Scissors), "Tied With Computer" },
         };
-        static void Main(string[] args)
+
+        private static void Main(string[] args)
         {
+            if (args is null)
+            {
+                throw new ArgumentNullException(nameof(args));
+            }
+
             Console.WriteLine("Hello Opponent. We are about to play a game of Rock, Paper, Scissors.");
             Console.WriteLine("What do you deem yourself worthy to call yourself?");
             string userName = Console.ReadLine();
@@ -56,7 +62,7 @@ namespace RockPaperScissors1
                     bool result;
                     do
                     {
-                        Console.WriteLine($"Enter {(short)RPS.Rock} to select {RPS.Rock.ToString()}, enter {(short)RPS.Paper} to select {RPS.Paper.ToString()}, or enter {(short)RPS.Scissors} to select {RPS.Scissors.ToString()}");
+                        Console.WriteLine($"Enter {(short)RPS.Rock} to select {Moves[RPS.Rock]}, enter {(short)RPS.Paper} to select {Moves[RPS.Paper]}, or enter {(short)RPS.Scissors} to select {Moves[RPS.Scissors]}");
                         result = short.TryParse(Console.ReadLine(), out choice);
 
                     } while (!result || !(choice > 0 && choice < 4));
