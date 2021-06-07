@@ -29,8 +29,6 @@ namespace RockPaperScissors1
             {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Paper), new { Effect = "cuts", ResultText = "Wins!!!" } },
             {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Scissors), new { Effect = "ties with", ResultText = "Tied With Computer" } }
         };
-
-
         static void Main(string[] args)
         {
             Console.WriteLine("Hello Opponent. We are about to play a game of Rock, Paper, Scissors.");
@@ -53,14 +51,11 @@ namespace RockPaperScissors1
                     short computerChoice = (short)randomGenerator.Next(1, 4);
                     Moves.TryGetValue((RPS)choice, out string choiceText);
                     Moves.TryGetValue((RPS)computerChoice, out string computerChoiceText);
-
                     Effects.TryGetValue(new Tuple<RPS, RPS>((RPS)choice, (RPS)computerChoice), out dynamic effect);
                     Console.WriteLine($"{userName}'s Choice: {choiceText}");
                     Console.WriteLine($"Computer Choice: {computerChoiceText}");
                     Console.WriteLine($"{userName} {effect.ResultText}. {choiceText} {effect.Effect} {computerChoiceText}");
                     Console.WriteLine();
-
-
                 }
                 Console.WriteLine($"Enter 'Y' to play again?");
                 string playAgainText = Console.ReadLine();
