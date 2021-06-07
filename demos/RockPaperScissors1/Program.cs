@@ -17,31 +17,20 @@ namespace RockPaperScissors1
             { RPS.Paper, "Paper" },
             { RPS.Scissors, "Scissors" }
         };
-        static Dictionary<Tuple<RPS, RPS>, string> Effects = new Dictionary<Tuple<RPS, RPS>, string>
+        static Dictionary<Tuple<RPS, RPS>, object> Effects = new Dictionary<Tuple<RPS, RPS>, object>
         {
-            {  new Tuple<RPS, RPS>(RPS.Rock, RPS.Rock), "ties with" },
-            {  new Tuple<RPS, RPS>(RPS.Rock, RPS.Paper), "is covered by" },
-            {  new Tuple<RPS, RPS>(RPS.Rock, RPS.Scissors), "smashes" },
-            {  new Tuple<RPS, RPS>(RPS.Paper, RPS.Rock), "covers" },
-            {  new Tuple<RPS, RPS>(RPS.Paper, RPS.Paper), "ties with" },
-            {  new Tuple<RPS, RPS>(RPS.Paper, RPS.Scissors), "is cut by" },
-            {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Rock), "is smashed by" },
-            {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Paper), "cuts" },
-            {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Scissors), "ties with" },
+            {  new Tuple<RPS, RPS>(RPS.Rock, RPS.Rock), new { Effect = "ties with", ResultText = "Tied With Computer" } },
+            {  new Tuple<RPS, RPS>(RPS.Rock, RPS.Paper), new { Effect = "is covered by", ResultText = "Loses" } },
+            {  new Tuple<RPS, RPS>(RPS.Rock, RPS.Scissors), new { Effect = "smashes", ResultText = "Wins!!!" } },
+            {  new Tuple<RPS, RPS>(RPS.Paper, RPS.Rock), new { Effect = "covers", ResultText = "Wins!!!" } },
+            {  new Tuple<RPS, RPS>(RPS.Paper, RPS.Paper), new { Effect = "ties with", ResultText = "Loses" } },
+            {  new Tuple<RPS, RPS>(RPS.Paper, RPS.Scissors), new { Effect = "is cut by", ResultText = "Tied With Computer" } },
+            {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Rock), new { Effect = "is smashed by", ResultText = "Loses" } },
+            {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Paper), new { Effect = "cuts", ResultText = "Wins!!!" } },
+            {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Scissors), new { Effect = "ties with", ResultText = "Tied With Computer" } }
         };
 
-        static Dictionary<Tuple<RPS, RPS>, string> Results = new Dictionary<Tuple<RPS, RPS>, string>
-        {
-            {  new Tuple<RPS, RPS>(RPS.Rock, RPS.Rock), "Tied With Computer" },
-            {  new Tuple<RPS, RPS>(RPS.Rock, RPS.Paper), "Loses" },
-            {  new Tuple<RPS, RPS>(RPS.Rock, RPS.Scissors), "Wins!!!" },
-            {  new Tuple<RPS, RPS>(RPS.Paper, RPS.Rock), "Wins!!!" },
-            {  new Tuple<RPS, RPS>(RPS.Paper, RPS.Scissors), "Loses" },
-            {  new Tuple<RPS, RPS>(RPS.Paper, RPS.Paper), "Tied With Computer" },
-            {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Rock), "Loses" },
-            {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Paper), "Wins!!!" },
-            {  new Tuple<RPS, RPS>(RPS.Scissors, RPS.Scissors), "Tied With Computer" },
-        };
+
         static void Main(string[] args)
         {
             Console.WriteLine("Hello Opponent. We are about to play a game of Rock, Paper, Scissors.");
@@ -64,11 +53,11 @@ namespace RockPaperScissors1
                     short computerChoice = (short)randomGenerator.Next(1, 4);
                     Moves.TryGetValue((RPS)choice, out string choiceText);
                     Moves.TryGetValue((RPS)computerChoice, out string computerChoiceText);
-                    Results.TryGetValue(new Tuple<RPS, RPS>((RPS)choice, (RPS)computerChoice), out string resultText);
-                    Effects.TryGetValue(new Tuple<RPS, RPS>((RPS)choice, (RPS)computerChoice), out string effectText);
+
+                    Effects.TryGetValue(new Tuple<RPS, RPS>((RPS)choice, (RPS)computerChoice), out dynamic effect);
                     Console.WriteLine($"{userName}'s Choice: {choiceText}");
                     Console.WriteLine($"Computer Choice: {computerChoiceText}");
-                    Console.WriteLine($"{userName} {resultText}. {choiceText} {effectText} {computerChoiceText}");
+                    Console.WriteLine($"{userName} {effect.ResultText}. {choiceText} {effect.Effect} {computerChoiceText}");
                     Console.WriteLine();
 
 
